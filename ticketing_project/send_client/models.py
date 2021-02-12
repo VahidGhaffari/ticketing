@@ -12,8 +12,9 @@ class ticket(models.Model):
         ('answd', 'has been answered'),
         ('termid', 'Terminated')
     )
+    u = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     subject = models.CharField(max_length=50)
-    ticket_message = models.CharField(max_length=256)
+    ticket_message = models.TextField()
     status = models.CharField(
         max_length=6, choices=STATUS_CHOISES)
     ps = models.FileField(blank=True)
@@ -23,11 +24,11 @@ class ticket(models.Model):
 
 
 class answer(models.Model):
-    u = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
-    text = models.CharField(max_length=512)
-    admin = models.BooleanField()
-    time = models.DateTimeField(auto_now_add=True)
     t = models.ForeignKey(ticket, on_delete=models.CASCADE, null=False)
+    text = models.TextField()
+    time = models.DateTimeField(auto_now_add=True)
+    u = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
+    #user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.text

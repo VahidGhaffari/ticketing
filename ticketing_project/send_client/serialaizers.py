@@ -20,4 +20,4 @@ class answerSerialaizer(serializers.ModelSerializer):
 
     class Meta:
         model = answer
-        fields = ['t', 'u', 'text', 'admin', 'time']
+        fields = ['t', 'u', 'text', 'time']
