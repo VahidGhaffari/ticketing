@@ -5,10 +5,10 @@ from . models import ticket, answer
 
 
 class ticketserialaizer(serializers.ModelSerializer):
-
     class Meta:
         model = ticket
-        fields = ['id', 'subject', 'ticket_message', 'ps', 'status']
+        fields = ['user', 'id', 'subject', 'ticket_message',
+                  'ps', 'status', 'category']
         extra_kwargs = {
             'status': {'read_only': True}
         }
@@ -20,4 +20,4 @@ class answerSerialaizer(serializers.ModelSerializer):
 
     class Meta:
         model = answer
-        fields = ['t', 'u', 'text', 'time']
+        fields = ['ticket', 'user', 'text', 'time']
