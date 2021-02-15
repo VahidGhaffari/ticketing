@@ -17,12 +17,16 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
-from .api_urls import router
+from rest_framework import routers
+from send_client.views import ticketViewset, answerticketViewset
+
+router = routers.SimpleRouter()
+router.register('ticket', ticketViewset, basename='ticket')
+router.register('answer_ticket', answerticketViewset, basename='answer_ticket')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include('send_client.urls')),
     path('api-token-auth/', obtain_auth_token),
-    path('api/', include(router.urls)),
+    path('', include(router.urls)),
 
 ]

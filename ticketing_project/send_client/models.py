@@ -20,13 +20,13 @@ class ticket(models.Model):
         ('answd', 'has been answered'),
         ('termid', 'Terminated')
     )
-    #owner = models.CharField(max_length=100, primary_key=True)
     subject = models.CharField(max_length=50)
     ticket_message = models.TextField()
     status = models.CharField(
         max_length=6, choices=STATUS_CHOISES, default='unrd', null=True)
     ps = models.FileField(blank=True)
-    category = models.ManyToManyField(Category)
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, null=False)
     user = models.ForeignKey(
         User, default=1, on_delete=models.CASCADE, null=False)
 
@@ -40,7 +40,6 @@ class answer(models.Model):
     time = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(
         User, default=1, on_delete=models.CASCADE, null=False)
-    #user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.text

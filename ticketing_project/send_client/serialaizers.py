@@ -5,6 +5,10 @@ from . models import ticket, answer
 
 
 class ticketserialaizer(serializers.ModelSerializer):
+    user = serializers.SlugRelatedField(
+        slug_field='username', read_only=True
+    )
+
     class Meta:
         model = ticket
         fields = ['user', 'id', 'subject', 'ticket_message',
@@ -15,9 +19,11 @@ class ticketserialaizer(serializers.ModelSerializer):
 
 
 class answerSerialaizer(serializers.ModelSerializer):
-    # t = serializers.SlugRelatedField(
-    #     slug_field='ticket_message', read_only=True)
-
+    ticket = serializers.SlugRelatedField(
+         slug_field='subject', read_only=True)
+    user = serializers.SlugRelatedField(
+        slug_field='username', read_only=True
+    )
     class Meta:
         model = answer
         fields = ['ticket', 'user', 'text', 'time']
