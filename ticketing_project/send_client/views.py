@@ -1,4 +1,6 @@
+import os
 from django.contrib.auth.models import User
+from django.urls.conf import path
 from rest_framework import serializers, status, viewsets
 from rest_framework.settings import api_settings
 
@@ -9,6 +11,8 @@ from rest_framework.response import Response
 from django.http import Http404
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
 from django.contrib.auth.models import User
+from django.http import FileResponse
+from django.contrib.auth.decorators import login_required
 
 
 class ticketViewset(viewsets.ModelViewSet):
@@ -18,10 +22,10 @@ class ticketViewset(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         ticket_data = request.data
         current_user = request.user
-        # print(type(ticket_data)) debug
-        # print(ticket_data) debug
+        print(type(ticket_data))
+        print(ticket_data)
         ticket_data["user"] = current_user.id
-        # print(ticket_data) debug
+        print(ticket_data)
         serializer = self.get_serializer(data=ticket_data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
@@ -90,3 +94,4 @@ class answerticketViewset(viewsets.ModelViewSet):
         if self.action == 'destroy':
             return [IsAdminUser(), ]
         return super(answerticketViewset, self).get_permissions()
+

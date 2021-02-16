@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models.deletion import CASCADE
 from django.db.models.fields import CharField
 from django.contrib.auth.models import User
+from django.core.validators import FileExtensionValidator
 
 
 class Category(models.Model):
@@ -14,17 +15,19 @@ class Category(models.Model):
 
 
 class ticket(models.Model):
+
     STATUS_CHOISES = (
-        ('unrd', 'Unread'),
-        ('rd', 'read '),
-        ('answd', 'has been answered'),
-        ('termid', 'Terminated')
+        ('1', 'Unread'),
+        ('2', 'read '),
+        ('3', 'has been answered'),
+        ('4', 'Terminated')
     )
     subject = models.CharField(max_length=50)
     ticket_message = models.TextField()
     status = models.CharField(
-        max_length=6, choices=STATUS_CHOISES, default='unrd', null=True)
-    ps = models.FileField(blank=True)
+        max_length=6, choices=STATUS_CHOISES, default='1', null=True)
+    ps = models.FileField(blank=True, upload_to="protect/",
+                          validators=[FileExtensionValidator()])
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, null=False)
     user = models.ForeignKey(
