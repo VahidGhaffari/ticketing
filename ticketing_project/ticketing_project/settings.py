@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'send.apps.SendConfig',
+    'ticket.apps.TicketConfig',
 
 ]
 

@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework import routers
-from send.views import ticketViewset, answerticketViewset
+from ticket.views import ticketViewset, answerticketViewset
 from django.conf import settings
 from django.conf.urls.static import static
 

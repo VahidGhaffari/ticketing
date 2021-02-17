@@ -4,7 +4,7 @@ from django.urls.conf import path
 from rest_framework import serializers, status, viewsets
 from rest_framework.settings import api_settings
 
-from .models import ticket, answer
+from .models import Ticket, answer
 from .serialaizers import ticketserialaizer, answerSerialaizer
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
@@ -16,7 +16,7 @@ from django.contrib.auth.decorators import login_required
 
 
 class ticketViewset(viewsets.ModelViewSet):
-    queryset = ticket.objects.all()
+    queryset = Ticket.objects.all()
     serializer_class = ticketserialaizer
 
     def create(self, request, *args, **kwargs):
@@ -94,4 +94,3 @@ class answerticketViewset(viewsets.ModelViewSet):
         if self.action == 'destroy':
             return [IsAdminUser(), ]
         return super(answerticketViewset, self).get_permissions()
-
